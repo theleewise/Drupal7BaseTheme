@@ -17,12 +17,12 @@
  *   The name of the template being rendered ("maintenance_page" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function crescere_preprocess_maintenance_page(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_maintenance_page(&$variables, $hook) {
   // When a variable is manipulated or added in preprocess_html or
   // preprocess_page, that same work is probably needed for the maintenance page
   // as well, so we can just re-use those functions to do that work here.
-  crescere_preprocess_html($variables, $hook);
-  crescere_preprocess_page($variables, $hook);
+  THEMENAMECLEAN_preprocess_html($variables, $hook);
+  THEMENAMECLEAN_preprocess_page($variables, $hook);
 }
 // */
 
@@ -35,12 +35,8 @@ function crescere_preprocess_maintenance_page(&$variables, $hook) {
  *   The name of the template being rendered ("html" in this case.)
  */
 // /* -- Delete this line if you want to use this function
-function crescere_preprocess_html(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_html(&$variables, $hook) {
   $variables['tag_manager_id'] = check_plain(theme_get_setting('tag_manager_id'));
-
-  drupal_add_css('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i', array('type' => 'external'));
-  drupal_add_css('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css', array('type' => 'external'));
-  drupal_add_js('https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js', array('type' => 'external'));
 
   // The body tag's classes are controlled by the $classes_array variable. To
   // remove a class from $classes_array, use array_diff().
@@ -59,7 +55,7 @@ function crescere_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("page" in this case.)
  */
 // /* -- Delete this line if you want to use this function
-function crescere_preprocess_page(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_page(&$variables, $hook) {
   drupal_add_js('jQuery.extend(Drupal.settings, { "pathToTheme": "' . path_to_theme() . '" });', 'inline');
 
   $variables['copyright'] = '&copy; ' . date("Y") . ' ' . check_plain(theme_get_setting('copyright'));
@@ -122,7 +118,7 @@ function crescere_preprocess_page(&$variables, $hook) {
  *   The name of the template being rendered ("region" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function crescere_preprocess_region(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_region(&$variables, $hook) {
   // Don't use Zen's region--no-wrapper.tpl.php template for sidebars.
   if (strpos($variables['region'], 'sidebar_') === 0) {
     $variables['theme_hook_suggestions'] = array_diff(
@@ -141,7 +137,7 @@ function crescere_preprocess_region(&$variables, $hook) {
  *   The name of the template being rendered ("block" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function crescere_preprocess_block(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_block(&$variables, $hook) {
   // Add a count to all the blocks in the region.
   // $variables['classes_array'][] = 'count-' . $variables['block_id'];
 
@@ -164,11 +160,11 @@ function crescere_preprocess_block(&$variables, $hook) {
  *   The name of the template being rendered ("node" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function crescere_preprocess_node(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_node(&$variables, $hook) {
   $variables['sample_variable'] = t('Lorem ipsum.');
 
   // Optionally, run node-type-specific preprocess functions, like
-  // crescere_preprocess_node_page() or crescere_preprocess_node_story().
+  // THEMENAMECLEAN_preprocess_node_page() or THEMENAMECLEAN_preprocess_node_story().
   $function = __FUNCTION__ . '_' . $variables['node']->type;
   if (function_exists($function)) {
     $function($variables, $hook);
@@ -185,7 +181,7 @@ function crescere_preprocess_node(&$variables, $hook) {
  *   The name of the template being rendered ("comment" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function crescere_preprocess_comment(&$variables, $hook) {
+function THEMENAMECLEAN_preprocess_comment(&$variables, $hook) {
   $variables['sample_variable'] = t('Lorem ipsum.');
 }
 // */
