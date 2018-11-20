@@ -17,12 +17,12 @@
  *   The name of the template being rendered ("maintenance_page" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_maintenance_page(&$variables, $hook) {
+function THEMENAME_preprocess_maintenance_page(&$variables, $hook) {
   // When a variable is manipulated or added in preprocess_html or
   // preprocess_page, that same work is probably needed for the maintenance page
   // as well, so we can just re-use those functions to do that work here.
-  THEMENAMECLEAN_preprocess_html($variables, $hook);
-  THEMENAMECLEAN_preprocess_page($variables, $hook);
+  THEMENAME_preprocess_html($variables, $hook);
+  THEMENAME_preprocess_page($variables, $hook);
 }
 // */
 
@@ -35,7 +35,7 @@ function THEMENAMECLEAN_preprocess_maintenance_page(&$variables, $hook) {
  *   The name of the template being rendered ("html" in this case.)
  */
 // /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_html(&$variables, $hook) {
+function THEMENAME_preprocess_html(&$variables, $hook) {
   $variables['tag_manager_id'] = check_plain(theme_get_setting('tag_manager_id'));
 
   // The body tag's classes are controlled by the $classes_array variable. To
@@ -55,7 +55,7 @@ function THEMENAMECLEAN_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("page" in this case.)
  */
 // /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_page(&$variables, $hook) {
+function THEMENAME_preprocess_page(&$variables, $hook) {
   drupal_add_js('jQuery.extend(Drupal.settings, { "pathToTheme": "' . path_to_theme() . '" });', 'inline');
 
   $variables['copyright'] = '&copy; ' . date("Y") . ' ' . check_plain(theme_get_setting('copyright'));
@@ -118,7 +118,7 @@ function THEMENAMECLEAN_preprocess_page(&$variables, $hook) {
  *   The name of the template being rendered ("region" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_region(&$variables, $hook) {
+function THEMENAME_preprocess_region(&$variables, $hook) {
   // Don't use Zen's region--no-wrapper.tpl.php template for sidebars.
   if (strpos($variables['region'], 'sidebar_') === 0) {
     $variables['theme_hook_suggestions'] = array_diff(
@@ -137,7 +137,7 @@ function THEMENAMECLEAN_preprocess_region(&$variables, $hook) {
  *   The name of the template being rendered ("block" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_block(&$variables, $hook) {
+function THEMENAME_preprocess_block(&$variables, $hook) {
   // Add a count to all the blocks in the region.
   // $variables['classes_array'][] = 'count-' . $variables['block_id'];
 
@@ -160,11 +160,11 @@ function THEMENAMECLEAN_preprocess_block(&$variables, $hook) {
  *   The name of the template being rendered ("node" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_node(&$variables, $hook) {
+function THEMENAME_preprocess_node(&$variables, $hook) {
   $variables['sample_variable'] = t('Lorem ipsum.');
 
   // Optionally, run node-type-specific preprocess functions, like
-  // THEMENAMECLEAN_preprocess_node_page() or THEMENAMECLEAN_preprocess_node_story().
+  // THEMENAME_preprocess_node_page() or THEMENAME_preprocess_node_story().
   $function = __FUNCTION__ . '_' . $variables['node']->type;
   if (function_exists($function)) {
     $function($variables, $hook);
@@ -181,7 +181,7 @@ function THEMENAMECLEAN_preprocess_node(&$variables, $hook) {
  *   The name of the template being rendered ("comment" in this case.)
  */
 /* -- Delete this line if you want to use this function
-function THEMENAMECLEAN_preprocess_comment(&$variables, $hook) {
+function THEMENAME_preprocess_comment(&$variables, $hook) {
   $variables['sample_variable'] = t('Lorem ipsum.');
 }
 // */
