@@ -5,7 +5,7 @@
 
 <div class="page">
 
-  <?php include(drupal_get_path('theme', 'theme_name').'/includes/header.tpl.php'); ?>
+  <?php include(path_to_theme().'/templates/includes/header.tpl.php'); ?>
 
   <main role="main">
     
@@ -18,9 +18,7 @@
         
         <?php
           print render($title_prefix);
-          if ($title) {
-            print '<h1>'.$title.'</h1>';
-          }
+          if ($title) { print '<h1>'.$title.'</h1>'; }
           print render($title_suffix);
         ?>
         
@@ -38,27 +36,13 @@
         
         <?php print $feed_icons; ?>
         
-        <!-- Social Links -->
-        <?php if( count($social) ): ?>
-          <div class="social-links">
-          <?php foreach($social as $x) {
-              print
-                '<a class="social-link social-link--' . strtolower($x['name']) . '" href="'. $x['url'] . $x['val'] .'" target="_blank">' .
-                '<svg class="icon-svg" height="1em" width="1em"><use xlink:href="#icon-' . strtolower($x['name']) . '"></use></svg>' .
-                '<span class="visually-hidden">' . $x['text'] . '</span>' .
-                '</a>'
-              ;
-            }
-          ?>
-          </div>
-        <?php endif; ?>
-        <!-- END Social Links -->
+        <?php include(path_to_theme().'/templates/includes/social.tpl.php'); ?>
 
       </div>
     </div>
 
   </main>
 
-  <?php include(drupal_get_path('theme', 'theme_name').'/includes/footer.tpl.php'); ?>
+  <?php include(path_to_theme().'/templates/includes/footer.tpl.php'); ?>
 
 </div>

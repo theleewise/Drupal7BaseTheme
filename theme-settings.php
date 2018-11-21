@@ -7,7 +7,7 @@
 /**
  * Implements hook_form_system_theme_settings_alter().
  */
-function THEMENAME_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
+function magicdev_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -49,6 +49,13 @@ function THEMENAME_form_system_theme_settings_alter(&$form, &$form_state, $form_
     '#description'   => t("Do not include 'https://www.youtube.com/")
   );
 
+  $form['privacy_url'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Privacy Policy URL'),
+    '#default_value' => theme_get_setting('privacy_url'),
+    '#description'   => t("Relative URL to the Privacy Policy")
+  );
+
   $form['copyright'] = array(
     '#type'          => 'textfield',
     '#title'         => t('Copyright Text'),
@@ -62,4 +69,6 @@ function THEMENAME_form_system_theme_settings_alter(&$form, &$form_state, $form_
     '#default_value' => theme_get_setting('tag_manager_id')
   );
   // We are editing the $form in place, so we don't need to return anything.
+
+  unset($form['site_name']);
 }

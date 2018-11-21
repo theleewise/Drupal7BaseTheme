@@ -7,181 +7,34 @@
  * @see https://drupal.org/node/1728096
  */
 
-
-/**
- * Override or insert variables into the maintenance page template.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("maintenance_page" in this case.)
- */
-/* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_maintenance_page(&$variables, $hook) {
-  // When a variable is manipulated or added in preprocess_html or
-  // preprocess_page, that same work is probably needed for the maintenance page
-  // as well, so we can just re-use those functions to do that work here.
-  THEMENAME_preprocess_html($variables, $hook);
-  THEMENAME_preprocess_page($variables, $hook);
-}
-// */
-
-/**
- * Override or insert variables into the html templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("html" in this case.)
- */
-// /* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_html(&$variables, $hook) {
+function magicdev_preprocess_html(&$variables, $hook) {
   $variables['tag_manager_id'] = check_plain(theme_get_setting('tag_manager_id'));
-
-  // The body tag's classes are controlled by the $classes_array variable. To
-  // remove a class from $classes_array, use array_diff().
-  // $variables['classes_array'] = array_diff($variables['classes_array'],
-  //   array('class-to-remove')
-  // );
 }
-// */
 
-/**
- * Override or insert variables into the page templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("page" in this case.)
- */
-// /* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_page(&$variables, $hook) {
+function magicdev_preprocess_page(&$variables, $hook) {
   drupal_add_js('jQuery.extend(Drupal.settings, { "pathToTheme": "' . path_to_theme() . '" });', 'inline');
 
   $variables['copyright'] = '&copy; ' . date("Y") . ' ' . check_plain(theme_get_setting('copyright'));
+  $variables['privacy'] = '<a href="/'.check_plain(theme_get_setting('privacy_url')).'">Privacy Policy</a>';
 
+  $social_settings = array(
+    'twitter' => array('name' => 'Twitter', 'url' => 'https://www.twitter.com/','text' => 'Follow us on Twitter'),
+    'facebook' => array('name' => 'Facebook', 'url' => 'https://www.facebook.com/','text' => 'Like us on Facebook'),
+    'instagram' => array('name' => 'Instagram', 'url' => 'https://www.instagram.com/','text' => 'Follow us on Instagram'),
+    'linkedin' => array('name' => 'LinkedIn', 'url' => 'https://www.linkedin.com/','text' => 'Follow us on LinkedIn'),
+    'youtube' => array('name' => 'YouTube', 'url' => 'https://www.youtube.com/','text' => 'Follow us on YouTube')
+    
+  );
   $variables['social'] = array();
-  if(check_plain(theme_get_setting('twitter'))){
-    array_push($variables['social'], array(
-      'name' => 'Twitter',
-      'val' => check_plain(theme_get_setting('twitter')), 
-      'url' => 'https://www.twitter.com/',
-      'text' => 'Follow us on Twitter'
-    ));
-  }
-
-  if(check_plain(theme_get_setting('facebook'))){
-    array_push($variables['social'], array(
-      'name' => 'Facebook',
-      'val' => check_plain(theme_get_setting('facebook')), 
-      'url' => 'https://www.facebook.com/',
-      'text' => 'Like us on Facebook'
-    ));
-  }
-
-  if(check_plain(theme_get_setting('instagram'))){
-    array_push($variables['social'], array(
-      'name' => 'Instagram',
-      'val' => check_plain(theme_get_setting('instagram')), 
-      'url' => 'https://www.instagram.com/',
-      'text' => 'Follow us on Instagram'
-    ));
-  }
-
-  if(check_plain(theme_get_setting('linkedin'))){
-    array_push($variables['social'], array(
-      'name' => 'LinkedIn',
-      'val' => check_plain(theme_get_setting('linkedin')), 
-      'url' => 'https://www.linkedin.com/',
-      'text' => 'Follow us on LinkedIn'
-    ));
-  }
-
-  if(check_plain(theme_get_setting('youtube'))){
-    array_push($variables['social'], array(
-      'name' => 'YouTube',
-      'val' => check_plain(theme_get_setting('youtube')), 
-      'url' => 'https://www.youtube.com/',
-      'text' => 'Follow us on YouTube'
-    ));
+  foreach ($social_settings as $key => $value) {
+    if(check_plain(theme_get_setting($key))){
+      array_push($variables['social'], array(
+        'name' => $value['name'],
+        'val' => check_plain(theme_get_setting($key)), 
+        'url' => $value['url'],
+        'text' => $value['text']
+      ));
+    }
   }
 
 }
-// */
-
-/**
- * Override or insert variables into the region templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("region" in this case.)
- */
-/* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_region(&$variables, $hook) {
-  // Don't use Zen's region--no-wrapper.tpl.php template for sidebars.
-  if (strpos($variables['region'], 'sidebar_') === 0) {
-    $variables['theme_hook_suggestions'] = array_diff(
-      $variables['theme_hook_suggestions'], array('region__no_wrapper')
-    );
-  }
-}
-// */
-
-/**
- * Override or insert variables into the block templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("block" in this case.)
- */
-/* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_block(&$variables, $hook) {
-  // Add a count to all the blocks in the region.
-  // $variables['classes_array'][] = 'count-' . $variables['block_id'];
-
-  // By default, Zen will use the block--no-wrapper.tpl.php for the main
-  // content. This optional bit of code undoes that:
-  if ($variables['block_html_id'] == 'block-system-main') {
-    $variables['theme_hook_suggestions'] = array_diff(
-      $variables['theme_hook_suggestions'], array('block__no_wrapper')
-    );
-  }
-}
-// */
-
-/**
- * Override or insert variables into the node templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("node" in this case.)
- */
-/* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_node(&$variables, $hook) {
-  $variables['sample_variable'] = t('Lorem ipsum.');
-
-  // Optionally, run node-type-specific preprocess functions, like
-  // THEMENAME_preprocess_node_page() or THEMENAME_preprocess_node_story().
-  $function = __FUNCTION__ . '_' . $variables['node']->type;
-  if (function_exists($function)) {
-    $function($variables, $hook);
-  }
-}
-// */
-
-/**
- * Override or insert variables into the comment templates.
- *
- * @param array $variables
- *   Variables to pass to the theme template.
- * @param string $hook
- *   The name of the template being rendered ("comment" in this case.)
- */
-/* -- Delete this line if you want to use this function
-function THEMENAME_preprocess_comment(&$variables, $hook) {
-  $variables['sample_variable'] = t('Lorem ipsum.');
-}
-// */
