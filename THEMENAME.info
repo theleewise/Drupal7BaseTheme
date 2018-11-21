@@ -11,7 +11,7 @@
 ; The name, description and screenshot used for this theme on the Appearance
 ; page at admin/appearance.
 screenshot  = screenshot.jpg
-name        = Magic Dev
+name        = THEMENAME
 description = Read the the included README.md.
 
 ; This theme is compatible with Drupal 7 core.

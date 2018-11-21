@@ -7,11 +7,11 @@
  * @see https://drupal.org/node/1728096
  */
 
-function magicdev_preprocess_html(&$variables, $hook) {
+function THEMENAME_preprocess_html(&$variables, $hook) {
   $variables['tag_manager_id'] = check_plain(theme_get_setting('tag_manager_id'));
 }
 
-function magicdev_preprocess_page(&$variables, $hook) {
+function THEMENAME_preprocess_page(&$variables, $hook) {
   drupal_add_js('jQuery.extend(Drupal.settings, { "pathToTheme": "' . path_to_theme() . '" });', 'inline');
 
   $variables['copyright'] = '&copy; ' . date("Y") . ' ' . check_plain(theme_get_setting('copyright'));
